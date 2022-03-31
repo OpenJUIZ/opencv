@@ -1,0 +1,25 @@
+
+containers:   
+  load_paths: 
+    - "/opt/juiz/share/juiz/components/OpenCV"
+    - "${ShelfDirectory}"
+    - "../build/lib/Debug"
+    - "../build/lib/Release"
+
+  preload:     
+    OpenCVCamera:       
+      operations: 
+        - "initialize"
+        - "capture"
+        - "finalize"
+load_paths: 
+  - "./"
+
+operations:   
+  load_paths: 
+    - "/opt/juiz/share/juiz/OpenCV"
+    - "${ShelfDirectory}"
+    - "../build/lib/Debug"
+    - "../build/lib/Release"
+
+  preload: []

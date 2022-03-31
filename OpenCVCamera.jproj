@@ -1,0 +1,59 @@
+logger:
+  logLevel: TRACE
+load_paths:
+  - ./
+  - /opt/juiz/share/juiz
+  - /opt/juiz/share/juiz/components
+shelves:
+  - path: OpenCV.jshelf
+  - path: brokers.jshelf
+  - path: ecs.jshelf
+operations:
+  precreate:  []
+anchors: []
+#  - fullName: origin
+#    typeName: DynamicPeriodicAnchor
+#    rate: 10
+#    autoStart: true
+containers:
+  precreate: 
+    - typeName: OpenCVCamera
+      fullName: OpenCVCamera0.ope
+      operations:
+        - typeName: initialize
+        - typeName: capture
+        - typeName: finalize
+          fullName: finalize0.ope
+  transformations: []
+connections: []
+brokers:
+  precreate: 
+    - typeName: HTTPBroker
+      fullName: HTTPBroker0.brk
+      host: "0.0.0.0"
+      port: 8080
+#      baseDir: "."
+#      route: {}
+ecs:
+  precreate:
+    - typeName: TimerEC
+      fullName: TimerEC0.ec
+      rate: 1.0
+      bind: []
+fsms:
+  precreate:
+    - typeName: GenericFSM
+      defaultState: stopped
+      states:
+        - name: stopped
+          transit: [ready]
+          bind: []
+        - name: ready
+          transit: [stopped, running]
+          bind: []
+#          #  - "OpenCVCamera0.ctn:finalize0.ope"
+        - name: running
+          transit: [ready]
+          bind: []
+#          #  - "OpenCVCamera0.ctn:initialize0.ope"
+        
